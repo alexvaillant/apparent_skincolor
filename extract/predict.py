@@ -65,7 +65,7 @@ def get_scalar_values(skin_smoothed_lab, labels, topk=3, bins='sturges'):
 
 def get_skin_values(img, mask, n_clusters=5):
     # smoothing
-    img_smoothed = gaussian(img, sigma=(1, 1), truncate=4, multichannel=True)
+    img_smoothed = gaussian(img, sigma=(1, 1), truncate=4, channel_axis=3)
 
     # get skin pixels (shape will be Mx3) and go to Lab
     skin_smoothed = img_smoothed[mask]
