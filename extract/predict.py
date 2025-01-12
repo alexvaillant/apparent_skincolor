@@ -94,7 +94,12 @@ def get_skin_values(img, mask, n_clusters=5):
     return res
 
 
-def main():
+def collect_skincolor_attributes(input_image, image_mask):
+    """
+    Arguments:
+    Input-Image := A crop-shot of a face
+    Image-Mask := A Mask of the given input-image build by deeplab3
+    """
     attrs = ['lum', 'hue']
     res = {}
     for attr in attrs:
@@ -102,11 +107,8 @@ def main():
         res[attr+'_std'] = []
 
     # reading images
-    fimg = 'samples/00000.png'
-    fmask = 'samples/00000_mask.png'
-
-    img_original = imread(fimg)
-    mask = imread(fmask)
+    img_original = imread(input_image)
+    mask = imread(image_mask)
 
     # get values
     tmp = get_skin_values(np.asarray(img_original),
@@ -115,8 +117,4 @@ def main():
         res[attr].append(tmp[attr])
         res[attr+'_std'].append(tmp[attr+'_std'])
 
-    print(res)
-
-
-if __name__ == "__main__":
-    main()
+    return res
